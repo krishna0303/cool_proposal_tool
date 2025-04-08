@@ -2,8 +2,7 @@
 venv/
 .env
 
-# SQLite DB (optional for production)
-*.db
+
 
 # Python cache
 __pycache__/

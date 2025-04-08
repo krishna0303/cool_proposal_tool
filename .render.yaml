@@ -8,6 +8,6 @@ services:
       - key: FLASK_ENV
         value: production
       - key: RAZORPAY_KEY_ID
-        value: rzp_live_DUnhAJMFNwKiPz
+        value: 
       - key: RAZORPAY_KEY_SECRET
-        value: mBeXJqyAFBic27YFkoT7oAC9
+        value: 

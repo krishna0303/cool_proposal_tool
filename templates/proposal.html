@@ -140,13 +140,46 @@
     </div>
   </div>
 
+  <!--
   <audio autoplay>
     <source src="https://api.voicerss.org/?key=5852e478f8494e56b100ec04aebb8f55&hl=en-us&v=Linda&src={{ proposal.message|urlencode }}">
   </audio>
+  -->
 
-  <audio id="audio" autoplay loop muted>
+  <audio id="audio" loop muted preload="auto">
     <source src="{{ url_for('static', filename='audio/fairytale.mp3') }}">
 </audio>
+<div id="clickPrompt" class="prompt">
+  Click anywhere on the page to listen to background music.
+</div>
+<style>
+  /* Cinematic Prompt Style */
+   /* Style for the transparent prompt */
+   .prompt {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.6); /* Transparent black background */
+            color: white;
+            padding: 20px 40px;
+            border-radius: 30px;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity 0.4s ease, transform 0.3s ease;
+            z-index: 9999;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px); /* Optional, adds blur effect behind the prompt */
+        }
+
+        .prompt.fade-out {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.9); /* Smooth shrink effect */
+        }
+  </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
@@ -182,11 +215,30 @@
     }, 500);
   </script>
   <script>
-    window.onload = function() {
-        var audio = document.getElementById('audio');
-        audio.muted = false; // Unmute after the page is loaded
-        audio.play();        // Ensure the audio starts playing
-    };
+document.addEventListener('DOMContentLoaded', function() {
+            var audio = document.getElementById('audio');
+            var clickPrompt = document.getElementById('clickPrompt');
+
+            // Wait for user click before proceeding with the page load and playing audio
+            document.body.addEventListener('click', function() {
+                // Unmute and play audio after user clicks anywhere
+                audio.muted = false;
+                audio.play().catch(function(e) {
+                    console.log("Autoplay blocked. Click anywhere on the page.");
+                });
+
+                // Smoothly fade out the prompt (fading out after the click)
+                clickPrompt.classList.add('fade-out');
+
+                // After the fade-out, disable interaction with the prompt
+                setTimeout(function() {
+                    clickPrompt.style.pointerEvents = 'none'; // Disable interaction after hiding
+                    // Reveal all the content once the user clicks
+                    document.body.style.visibility = 'visible';
+                }, 500); // Timeout to match the fade-out duration
+            });
+        });
     </script>
+    
 </body>
 </html>

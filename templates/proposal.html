@@ -144,11 +144,9 @@
     <source src="https://api.voicerss.org/?key=5852e478f8494e56b100ec04aebb8f55&hl=en-us&v=Linda&src={{ proposal.message|urlencode }}">
   </audio>
 
-  <audio autoplay loop>
-    
-      <source src="{{ url_for('static', filename='audio/fairytale.mp3') }}">
-   
-  </audio>
+  <audio id="audio" autoplay loop muted>
+    <source src="{{ url_for('static', filename='audio/fairytale.mp3') }}">
+</audio>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
@@ -183,5 +181,12 @@
       }
     }, 500);
   </script>
+  <script>
+    window.onload = function() {
+        var audio = document.getElementById('audio');
+        audio.muted = false; // Unmute after the page is loaded
+        audio.play();        // Ensure the audio starts playing
+    };
+    </script>
 </body>
 </html>

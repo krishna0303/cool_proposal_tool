@@ -140,7 +140,7 @@
   </audio>
 
   <!-- Funny Background Music -->
-  <audio autoplay loop>
+  <audio id="audio" autoplay loop muted>
     <source src="{{ url_for('static', filename='audio/classic.mp3') }}">
   </audio>
 
@@ -178,5 +178,12 @@
       }
     }, 600);
   </script>
+  <script>
+    window.onload = function() {
+        var audio = document.getElementById('audio');
+        audio.muted = false; // Unmute after the page is loaded
+        audio.play();        // Ensure the audio starts playing
+    };
+    </script>
 </body>
 </html>

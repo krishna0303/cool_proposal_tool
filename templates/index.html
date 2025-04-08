@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Propose Your Crush 💌</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+    }
+
+    #vanta-bg {
+      height: 100vh;
+      width: 100vw;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      max-width: 500px;
+      margin-top: 50px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h2 {
+      font-weight: 700;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+
+    label {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .form-control,
+    .form-select {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+    }
+
+    .form-control::placeholder {
+      color: #ccc;
+    }
+
+    .btn-danger {
+      background: #ff4081;
+      border: none;
+    }
+
+    .btn-danger:hover {
+      background: #ff1c68;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .form-select {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    .form-select:focus {
+      box-shadow: 0 0 0 0.25rem rgba(0, 255, 195, 0.25);
+      /* greenish glow on focus */
+    }
+
+    .form-select option {
+      background-color: #0a0a0a;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="vanta-bg"></div>
+
+  <div class="container d-flex justify-content-center align-items-center h-100">
+    <div class="glass-card">
+      <!-- 💘 Form Heading -->
+      <h2 class="text-center mb-4" id="form-heading">💘 Propose Your Crush Anonymously</h2>
+      <form action="/" method="POST" onsubmit="showLoading()">
+        <div class="mb-3">
+          <label for="theme">Choose a Style Theme</label>
+          <select name="theme" id="theme" class="form-select" onchange="updateThemeText()">
+            <option value="crush">💘 Love Proposal</option>
+            <option value="friend">💬 Friendship Proposal</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="your_name">Your Name</label>
+          <input type="text" name="your_name" id="your_name" class="form-control" placeholder="e.g. Secret Admirer"
+            required>
+        </div>
+        <div class="mb-3">
+          <!-- 💡 Dynamic Label -->
+          <label for="crush_name" id="crush-label">Crush's Name</label>
+          <input type="text" name="crush_name" id="crush_name" class="form-control" placeholder="e.g. Priya 💕"
+            required>
+        </div>
+
+        <!-- Message Selection Dropdown -->
+        <div class="mb-3">
+          <label for="messagePreset" class="form-label">Choose a fun message or write your own:</label>
+          <select id="messagePreset" class="form-select mb-2" onchange="setMessage()">
+            <!-- Options dynamically filled by JS -->
+          </select>
+
+          <!-- Editable Message Box -->
+          <textarea id="message" class="form-control mt-2" name="message" rows="4"
+            placeholder="Write your own message here..."></textarea>
+        </div>
+
+
+        <!-- 💡 Dynamic Button -->
+        <button class="btn btn-danger w-100" id="submit-btn">Generate My Proposal Link 💌</button>
+
+        <div class="text-center mt-3" id="loading" style="display:none;">
+          <div class="spinner-border text-light" role="status"></div>
+          <p class="mt-2" id="spin_text">Creating your dreamy proposal… 💖</p>
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+
+  <!-- VANTA JS and three.js for 3D background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.globe.min.js"></script>
+  <script>
+    VANTA.GLOBE({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0xff4081,
+      backgroundColor: 0x0a0a0a
+    });
+
+    function showLoading() {
+      document.getElementById('submit-btn').disabled = true;
+      document.getElementById('submit-btn').innerText = 'Generating...';
+      document.getElementById('loading').style.display = 'block';
+    }
+  </script>
+  <script>
+    function updateThemeText() {
+      const theme = document.getElementById("theme").value;
+
+      // 1. Update dropdown message options
+      updateMessageOptions(theme);
+
+      if (theme === 'friend') {
+        document.getElementById('form-heading').innerText = "😂 Drop a Savage Friendship Proposal";
+        document.getElementById('crush-label').innerText = "Bestie's Name";
+        document.getElementById('crush_name').placeholder = "e.g. Chintu the Drama Queen 😭";
+        document.getElementById('submit-btn').innerText = "Send the LOL Bomb 💣";
+        document.getElementById('message').placeholder = "Bro, you're the reason sarcasm exists 😭💀";
+        document.getElementById('spin_text').innerText = "Brewing your friendship chaos… ☕";
+      } else {
+        document.getElementById('form-heading').innerText = "💘 Slide Into Their Feels";
+        document.getElementById('crush-label').innerText = "Special Someone’s Name";
+        document.getElementById('crush_name').placeholder = "e.g. Priya with the pretty eyes 👀💞";
+        document.getElementById('submit-btn').innerText = "Shoot Your Shot 💌";
+        document.getElementById('message').placeholder = "Hey... so, I kinda vibe with you a lot. Wanna risk it all? 😳❤️";
+        document.getElementById('spin_text').innerText = "Manifesting your love story… ✨";
+      }
+       // Optional: Clear previous message
+  document.getElementById("message").value = "";
+  document.getElementById("messagePreset").selectedIndex = 0;
+    }
+
+    function showLoading() {
+      document.getElementById('submit-btn').disabled = true;
+      document.getElementById('submit-btn').innerText = 'Generating...';
+      document.getElementById('loading').style.display = 'block';
+    }
+
+    // Trigger once on page load to set default
+    document.addEventListener('DOMContentLoaded', updateThemeText);
+
+
+    const loveMessages = [
+      "Okay, hear me out… I think we’d look really cute holding hands and annoying everyone together. So… let’s make this official before someone else steals my daydream.",
+      "I don't know what kind of spell you’ve cast, but my brain’s been stuck on you like a reel on loop. Just say yes, and I promise to simp respectfully forever 💌",
+      "You’re basically the main character in my overthinking playlist. So I thought, why not confess and risk it all for a plot twist? 😅",
+      "Not saying I’m in love, but I may or may not have imagined our wedding playlist… casually. So yeah, if you like chaos and cuddles, pick me 🥹",
+      "This is your official notification: Someone out there (👀 me) finds you unbearably cute and wants to steal your hoodie… and your heart. Deal?"
+    ];
+
+    const friendMessages = [
+      "So here’s the deal… We vibe like chips and chai, and honestly, this friendship deserves a title track. Wanna make it official? 😎",
+      "You annoy me 90% of the time, but I still wouldn’t trade you for anyone else’s Wi-Fi password. Let’s call this a friendship proposal 🫱🏼‍🫲🏼",
+      "I’ve decided to upgrade you from ‘just friend’ to ‘certified clown in my life’. Say yes before the offer expires 😂",
+      "This is not just a message… it’s a legally binding friendship contract (kinda). Accept it and let the memes continue 💬",
+      "You're now nominated for ‘Friend of the Year’. All you have to do is say YES and accept my dramatic friendship proposal 🏆"
+    ];
+
+    function updateMessageOptions(theme) {
+      const presetSelect = document.getElementById("messagePreset");
+      presetSelect.innerHTML = ""; // Clear existing
+
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.innerText = "-- Choose a message or write your own --";
+      presetSelect.appendChild(defaultOption);
+
+      const messages = theme === 'friend' ? friendMessages : loveMessages;
+      messages.forEach((msg, index) => {
+        const option = document.createElement("option");
+        option.value = msg;
+        option.innerText = msg.slice(0, 60) + "..."; // Preview text
+        presetSelect.appendChild(option);
+      });
+    }
+
+    function setMessage() {
+      const selected = document.getElementById("messagePreset").value;
+      if (selected) {
+        document.getElementById("message").value = selected;
+      }
+    }
+
+    // Call this function whenever theme changes
+    
+
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+# Python virtual environment
+venv/
+.env
+
+# SQLite DB (optional for production)
+*.db
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# VS Code settings (optional)
+.vscode/
+
+# Mac system files
+.DS_Store

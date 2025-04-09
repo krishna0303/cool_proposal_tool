@@ -1,123 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Magical Proposal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden;
-      color: white;
-    }
+    <meta charset="UTF-8">
+    <title>Magical Proposal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    #vanta-bg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            color: white;
+        }
 
-    .proposal-box {
-      backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 25px;
-      padding: 40px;
-      margin: 70px auto;
-      max-width: 800px;
-      text-align: center;
-      box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
-      animation: fadeIn 2s ease-out;
-    }
+        #vanta-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
 
-    h1 {
-      font-size: 2.8rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba(255,255,255,0.5);
-    }
+        .proposal-box {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 70px auto;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+            animation: fadeIn 2s ease-out;
+            position: relative;
+        }
 
-    .theme-note {
-      opacity: 0.7;
-      font-style: italic;
-    }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
 
-    .message {
-      font-size: 1.3rem;
-      margin-top: 30px;
-      animation: fadeIn 2s ease-out 1s forwards;
-      opacity: 0;
-    }
+        .theme-note {
+            opacity: 0.7;
+            font-style: italic;
+        }
 
-    .from-to {
-      margin-top: 15px;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
+        .message {
+            font-size: 1.3rem;
+            margin-top: 30px;
+            animation: fadeIn 2s ease-out 1s forwards;
+            opacity: 0;
+        }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
+        .from-to {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
 
-    .glitch {
-      position: relative;
-      color: white;
-      font-weight: 900;
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-    .glitch::before, .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .glitch::before {
-      animation: glitchTop 2s infinite linear alternate-reverse;
-      color: #f0f;
-    }
+        .fairy-glow {
+            text-shadow: 0 0 10px #ffe, 0 0 20px #ccf, 0 0 30px #88f;
+        }
 
-    .glitch::after {
-      animation: glitchBottom 1.5s infinite linear alternate-reverse;
-      color: #0ff;
-    }
+        .btn-wrap {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            position: relative;
+        }
 
-    @keyframes glitchTop {
-      0% { top: -2px; left: -2px; }
-      100% { top: 2px; left: 2px; }
-    }
+        .btn-choice {
+            font-size: 1.2rem;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            background-color: #ff66b2;
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 102, 178, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
 
-    @keyframes glitchBottom {
-      0% { top: 2px; left: 2px; }
-      100% { top: -2px; left: -2px; }
-    }
+        .btn-choice:hover {
+            transform: scale(1.05);
+        }
 
-    .sparkle {
-      animation: sparkle 2s infinite alternate;
-    }
+        .popup-msg {
+            position: absolute;
+            top: -40px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
 
-    @keyframes sparkle {
-      0% { text-shadow: 0 0 10px #fff, 0 0 20px #f0f, 0 0 30px #0ff; }
-      100% { text-shadow: 0 0 20px #ff0, 0 0 30px #0ff, 0 0 40px #f0f; }
-    }
+        .btn-no:hover+.popup-msg {
+            opacity: 1;
+        }
 
-    .fairy-glow {
-      text-shadow: 0 0 10px #ffe, 0 0 20px #ccf, 0 0 30px #88f;
-    }
+        #clickPrompt {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 30px;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity 0.4s ease, transform 0.3s ease;
+            z-index: 9999;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
 
-    .minimal {
-      background: rgba(255, 255, 255, 0.1);
-      color: #222;
-      text-shadow: none;
-      box-shadow: none;
-    }
-    @media (max-width: 768px) {
+        #clickPrompt.fade-out {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.9);
+        }
+
+        @media (max-width: 768px) {
+
+            html,
+            body {
+                height: 100vh !important;
+                overflow: hidden !important;
+            }
+
+            #vanta-bg {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                width: 100vw !important;
+                height: 100vh !important;
+                z-index: -1 !important;
+            }
+
+            .proposal-box {
+                margin: 20px auto !important;
+                padding: 20px !important;
+            }
+
+            .btn-wrap {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 30px;
+            transition: left 0.3s ease, top 0.3s ease;
+            white-space: nowrap;
+        }
+        #messageBox {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+@media (max-width: 768px) {
   .container {
     padding: 70px;
     height: 100vh;
@@ -135,160 +207,265 @@
     box-sizing: border-box;
   }
 }
-
-  </style>
-  <style>
-    /* Fix VANTA background on mobile devices */
-    @media (max-width: 768px) {
-      html, body {
-        height: 100vh !important;
-        overflow: hidden !important;
-      }
-  
-      #vanta-bg {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        width: 100vw !important;
-        height: 100vh !important;
-        z-index: -1 !important;
-      }
-  
-      .proposal-box {
-        margin: 20px auto !important;
-        padding: 20px !important;
-      }
-  
-      .container {
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-  </style>
-  
+    </style>
 </head>
+
 <body>
-  <div id="vanta-bg"></div>
+    <div id="vanta-bg"></div>
+    <div class="container">
+        <div class="proposal-box" style="max-height: 80vh; overflow-y: auto; padding-right: 10px;">
+            <h1 class="fairy-glow">{{ proposal.crush_name }},</h1>
+            <p class="from-to">You have received a heartfelt proposal from <strong>{{ proposal.your_name }}</strong>.
+            </p>
+            <div class="message">
+                <p><em>"{{ proposal.message }}"</em></p>
+            </div>
+            <p class="theme-note mt-4">Theme: {{ proposal.theme|capitalize }}</p>
 
-  <div class="container">
-    <div class="proposal-box ">
-      <h1
-        class="
-          fairy-glow
-        "
-        data-text="{{ proposal.crush_name }}"
-      >
-        {{ proposal.crush_name }},
-      </h1>
-      <p class="from-to">You have received a heartfelt proposal from <strong>{{ proposal.your_name }}</strong>.</p>
-      <div class="message">
-        <p><em>"{{ proposal.message }}"</em></p>
-      </div>
-      <p class="theme-note mt-4">Theme: {{ proposal.theme|capitalize }}</p>
+            <!-- 🎯 Button Section -->
+            <div class="btn-wrap mt-4" style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                <button id="yesBtn" class="btn-choice" style="min-width: 100px;">Yes 💖</button>
+                <button id="noBtn" class="btn-choice btn-no" style="min-width: 100px;">No 😅</button>
+                
+            </div>
+
+
+
+        </div>
     </div>
-  </div>
 
-  <!--
-  <audio autoplay>
-    <source src="https://api.voicerss.org/?key=5852e478f8494e56b100ec04aebb8f55&hl=en-us&v=Linda&src={{ proposal.message|urlencode }}">
-  </audio>
-  -->
+    <!-- 🎵 Background Music -->
+    <audio id="audio" loop muted preload="auto">
+        <source src="{{ url_for('static', filename='audio/fairytale.mp3') }}">
+    </audio>
+    <div id="clickPrompt">Click anywhere on the page to listen to background music.</div>
 
-  <audio id="audio" loop muted preload="auto">
-    <source src="{{ url_for('static', filename='audio/fairytale.mp3') }}">
-</audio>
-<div id="clickPrompt" class="prompt">
-  Click anywhere on the page to listen to background music.
-</div>
-<style>
-  /* Cinematic Prompt Style */
-   /* Style for the transparent prompt */
-   .prompt {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.6); /* Transparent black background */
-            color: white;
-            padding: 20px 40px;
-            border-radius: 30px;
-            font-size: 20px;
-            text-align: center;
-            font-weight: bold;
-            opacity: 1;
-            pointer-events: auto;
-            transition: opacity 0.4s ease, transform 0.3s ease;
-            z-index: 9999;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px); /* Optional, adds blur effect behind the prompt */
-        }
-
-        .prompt.fade-out {
-            opacity: 0;
-            transform: translateX(-50%) scale(0.9); /* Smooth shrink effect */
-        }
-  </style>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.waves.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script>
-    
-
-    VANTA.BIRDS({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.0,
-      scaleMobile: 1.0,
-      color: 0xff99cc,
-      backgroundColor: 0x0d0d0d
-    });
-
-   
-
-    // Fireworks + Confetti
-    setTimeout(() => {
-      for (let i = 0; i < 5; i++) {
-        confetti({
-          particleCount: 100,
-          spread: 120,
-          origin: { y: 0.6 },
+    <!-- 🔮 Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        VANTA.BIRDS({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.0,
+            scaleMobile: 1.0,
+            color: 0xff99cc,
+            backgroundColor: 0x0d0d0d
         });
-      }
-    }, 500);
-  </script>
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-            var audio = document.getElementById('audio');
-            var clickPrompt = document.getElementById('clickPrompt');
 
-            // Wait for user click before proceeding with the page load and playing audio
-            document.body.addEventListener('click', function() {
-                // Unmute and play audio after user clicks anywhere
+        document.addEventListener('DOMContentLoaded', function () {
+            const audio = document.getElementById('audio');
+            const clickPrompt = document.getElementById('clickPrompt');
+
+            document.body.addEventListener('click', function () {
                 audio.muted = false;
-                audio.play().catch(function(e) {
-                    console.log("Autoplay blocked. Click anywhere on the page.");
-                });
-
-                // Smoothly fade out the prompt (fading out after the click)
+                audio.play().catch(() => console.log("Autoplay blocked."));
                 clickPrompt.classList.add('fade-out');
-
-                // After the fade-out, disable interaction with the prompt
-                setTimeout(function() {
-                    clickPrompt.style.pointerEvents = 'none'; // Disable interaction after hiding
-                    // Reveal all the content once the user clicks
-                    document.body.style.visibility = 'visible';
-                }, 500); // Timeout to match the fade-out duration
+                setTimeout(() => clickPrompt.style.pointerEvents = 'none', 500);
             });
+
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const messageBox = document.querySelector('.message');
+            const proposalBox = document.querySelector('.proposal-box');
+
+            let tapCount = 0;
+            noBtn.addEventListener('click', () => {
+                if (tapCount >= 10) return;
+                tapCount++;
+                showPopup();
+                const buttonRect = noBtn.getBoundingClientRect();
+                const buttonWidth = buttonRect.width;
+                const buttonHeight = buttonRect.height;
+
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+
+                // Define center safe area (middle 50% of screen)
+                const safeLeft = viewportWidth * 0.25;
+                const safeTop = viewportHeight * 0.25;
+                const safeRight = viewportWidth * 0.75 - buttonWidth;
+                const safeBottom = viewportHeight * 0.75 - buttonHeight;
+
+                // Generate position within safe center area
+                const newX = Math.floor(Math.random() * (safeRight - safeLeft + 1)) + safeLeft;
+                const newY = Math.floor(Math.random() * (safeBottom - safeTop + 1)) + safeTop;
+
+                // Move the button
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = `${newX}px`;
+                noBtn.style.top = `${newY}px`;
+
+                // // Popup logic (unchanged)
+                // const popup = document.getElementById('popupMsg');
+                // popup.style.position = 'fixed';
+                // popup.style.left = `${newX}px`;
+                // popup.style.top = `${newY - 40}px`;
+                // popup.style.opacity = 1;
+
+                // setTimeout(() => {
+                //     popup.style.opacity = 0;
+                // }, 1200);
+
+                if (tapCount === 10) {
+                    setTimeout(showFinalDialog, 700);
+                }
+            });
+
+
+
+
+
+
+
+
+            yesBtn.addEventListener('click', () => {
+                showFinalDialog();
+            });
+
+            function showPopup() {
+    const funnyMessages = [
+        "Wait… what?! Are you sure you clicked the right button? 🫣",
+        "This must be a misclick. I forgive you 😌",
+        "Ouch! That hurt my feelings... and my code 💔",
+        "NO? That button wasn’t even supposed to be there 😭",
+        "Are you ghosting me in real-time? 👻",
+        "Every time you click 'No', a unicorn loses its sparkle 🦄✨",
+        "Plot twist: That was the wrong answer 😜",
+        "You’ve activated my emotional damage protocol 🧠💥",
+        "Don't say 'No'… my heart's running on fire & feelings 😢",
+        "If love was a bug, would you still debug it? 🐞❤️"
+    ];
+
+    const popup = document.createElement('div');
+    popup.className = 'popup-message';
+    popup.innerText = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+
+    popup.style.position = 'fixed';
+    popup.style.maxWidth = '80vw';  // Limit width for mobile screens
+    popup.style.wordWrap = 'break-word';  // Wrap long messages
+    popup.style.padding = '12px 18px';
+    popup.style.background = 'rgba(0,0,0,0.8)';
+    popup.style.borderRadius = '20px';
+    popup.style.color = 'white';
+    popup.style.zIndex = 9999;
+    popup.style.fontSize = '14px';
+    popup.style.boxShadow = '0 0 10px rgba(0,0,0,0.3)';
+    popup.style.opacity = 1;
+    popup.style.transition = 'opacity 0.3s ease';
+
+    // Random position but safe for screen size
+    const top = Math.random() * 60 + 10;
+    const left = Math.random() * 60 + 10;
+    popup.style.top = `${top}vh`;
+    popup.style.left = `${left}vw`;
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+        popup.style.opacity = 0;
+        setTimeout(() => popup.remove(), 500);
+    }, 1800);
+}
+
+            
+function showFinalDialog() {
+    // Change the background if you want a dramatic effect (optional)
+    document.body.style.backgroundImage = "url('https://media.giphy.com/media/3o6ZsW0xJ6nD8/giphy.gif')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.transition = "background 1s ease-in-out";
+
+    // Heart shower animation using emojis
+    const heartContainer = document.createElement("div");
+    heartContainer.style.position = "fixed";
+    heartContainer.style.top = 0;
+    heartContainer.style.left = 0;
+    heartContainer.style.width = "100%";
+    heartContainer.style.height = "100%";
+    heartContainer.style.pointerEvents = "none";
+    heartContainer.style.zIndex = 9999;
+    document.body.appendChild(heartContainer);
+
+    for (let i = 0; i < 100; i++) {
+        const heart = document.createElement("div");
+        heart.innerText = "💖";
+        heart.style.position = "absolute";
+        heart.style.fontSize = `${Math.random() * 24 + 20}px`;
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.top = `${-Math.random() * 20}px`;
+        heart.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+        heartContainer.appendChild(heart);
+    }
+
+    // Final cinematic message
+    messageBox.innerHTML = `
+        <p style="font-size: 1.25rem; text-align: center; margin: 20px; line-height: 1.7;">
+            💞 *Tumne haan kehdi... aur meri duniya hi badal gayi!* 💞<br><br>
+            "Palat... palat... palat!" — aur tumne palat ke <b>‘YES’</b> kehdiya! 🥹✨<br><br>
+            <i>Jab tak tumhara haath mere haath mein hai...</i> mujhe kisi cheez ka darr nahi! 💑<br><br>
+            Aaj officially announce karte hain... *Proposal Accepted!* 💍🎉<br>
+            Mere dil ka "DDLJ moment" aagaya hai — aur meri Senorita ne bhi haan kehdiya! 🥰<br><br>
+            Thank you for accepting the proposal... ab toh full shaadi vibes, band baaja baarat ready karo! 🥳💃🕺<br><br>
+            “Picture abhi baaki hai mere dost...” 🎬
+        </p>
+    `;
+
+    // Hide buttons
+    yesBtn.style.display = 'none';
+    noBtn.style.display = 'none';
+
+    // Confetti shower
+    confetti({ particleCount: 300, spread: 180, origin: { y: 0.6 } });
+
+    // Heart falling animation style
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
         });
     </script>
-    
+    <script>
+      // Function for typing effect
+      function typeMessage(message, elementId, speed) {
+          let index = 0;
+          let element = document.getElementById(elementId);
+          
+          // Clear the previous text content
+          element.innerHTML = '';
+          
+          // Function to type one character at a time
+          function typeCharacter() {
+              if (index < message.length) {
+                  element.innerHTML += message.charAt(index);
+                  index++;
+                  setTimeout(typeCharacter, speed);
+              }
+          }
+          
+          // Start the typing effect
+          typeCharacter();
+      }
+  
+      // Get the message and start typing effect
+      document.addEventListener('DOMContentLoaded', function() {
+          let message = "{{ proposal.message }}";  // Use the message from the server-side template
+          typeMessage(message, 'typedMessage', 100);  // Speed: 100ms per character
+      });
+  </script>
 </body>
+
 </html>

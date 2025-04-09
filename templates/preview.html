@@ -71,6 +71,24 @@
         opacity: 1;
       }
     }
+    @media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ✅ Restrict input box size on phone */
+  .glass-card {
+    width: 100%;
+    max-width: 90%;
+    padding: 20px;
+    margin-top: 0;
+    box-sizing: border-box;
+  }
+}
   </style>
 </head>
 

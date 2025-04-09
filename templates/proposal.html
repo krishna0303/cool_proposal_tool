@@ -117,7 +117,57 @@
       text-shadow: none;
       box-shadow: none;
     }
+    @media (max-width: 768px) {
+  .container {
+    padding: 70px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ✅ Restrict input box size on phone */
+  .glass-card {
+    width: 100%;
+    max-width: 90%;
+    padding: 20px;
+    margin-top: 0;
+    box-sizing: border-box;
+  }
+}
+
   </style>
+  <style>
+    /* Fix VANTA background on mobile devices */
+    @media (max-width: 768px) {
+      html, body {
+        height: 100vh !important;
+        overflow: hidden !important;
+      }
+  
+      #vanta-bg {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: -1 !important;
+      }
+  
+      .proposal-box {
+        margin: 20px auto !important;
+        padding: 20px !important;
+      }
+  
+      .container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  </style>
+  
 </head>
 <body>
   <div id="vanta-bg"></div>

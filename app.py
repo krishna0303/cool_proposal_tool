@@ -30,22 +30,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-
-def escape_special_characters(message):
-    """
-    Manually escape special characters for safe JavaScript rendering.
-    """
-    # Replace single quotes, double quotes, and other special characters
-    message = message.replace("'", "&#39;")
-    message = message.replace('"', "&quot;")
-    message = message.replace("<", "&lt;")
-    message = message.replace(">", "&gt;")
-    message = message.replace("&", "&amp;")
-    # Optionally handle newlines (you can adjust this if needed)
-    message = message.replace("\n", "<br>")
-    
-    # Optionally, handle emoji characters (just keep them as they are, they won't break JavaScript)
-    return message
 # 🔹 Home Page → Form
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -65,7 +49,7 @@ def index():
         conn.commit()
         conn.close()
 
-        return redirect(url_for('proposal', url_id=url_id))
+        return redirect(url_for('preview', url_id=url_id))
     return render_template("index.html")
 
 
@@ -84,7 +68,7 @@ def preview(url_id):
 
     # Create Razorpay order only if not already paid
     order = razorpay_client.order.create({
-        "amount": 100,  # ₹10 in paise
+        "amount": 2900,  # ₹10 in paise
         "currency": "INR",
         "payment_capture": 1
     })
@@ -132,11 +116,10 @@ def proposal(url_id):
     if datetime.utcnow() - created_at_dt > timedelta(hours=24):
         return render_template("expired.html", unique_id=unique_id)
 
-   # if not proposal['paid']:
-    #    return redirect(url_for('preview', url_id=url_id))
+    if not proposal['paid']:
+        return redirect(url_for('preview', url_id=url_id))
 
-    escaped_message = escape_special_characters(proposal["message"])
-    return render_template("proposal.html", proposal=proposal,escaped_message=escaped_message)
+    return render_template("proposal.html", proposal=proposal)
 
 # 🔹 Final Friend Roast Page
 @app.route('/friend_roast/<url_id>')
@@ -200,7 +183,5 @@ def verify_payment():
 
     except razorpay.errors.SignatureVerificationError:
         return jsonify({'status': 'failure'})
-
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False, host="0.0.0.0", port=10000)

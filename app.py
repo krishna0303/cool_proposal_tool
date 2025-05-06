@@ -49,7 +49,7 @@ def index():
         conn.commit()
         conn.close()
 
-        return redirect(url_for('preview', url_id=url_id))
+        return redirect(url_for('proposal', url_id=url_id))
     return render_template("index.html")
 
 
@@ -116,8 +116,8 @@ def proposal(url_id):
     if datetime.utcnow() - created_at_dt > timedelta(hours=24):
         return render_template("expired.html", unique_id=unique_id)
 
-    if not proposal['paid']:
-        return redirect(url_for('preview', url_id=url_id))
+    #if not proposal['paid']:
+        #return redirect(url_for('preview', url_id=url_id))
 
     return render_template("proposal.html", proposal=proposal)
 
